@@ -9,13 +9,19 @@ if (php_sapi_name() !== 'cli') {
 include __DIR__.'/vendor/autoload.php';
 
 // Normalize codepoints for Twemoji
-$emoji = array_map(function ($emoji) {
-    if (strpos($emoji, "\u{200D}") === false) {
-        $emoji = str_replace("\u{FE0F}", '', $emoji);
-    }
+$emoji = array_map(
+	function ($emoji) {
+		if (strpos($emoji, "\u{200D}") === false) {
+			$emoji = str_replace("\u{FE0F}", '', $emoji);
+		}
 
-    return $emoji;
-}, Spatie\Emoji\Emoji::all());
+		return $emoji;
+	},
+	array_filter(
+		Spatie\Emoji\Emoji::all(),
+		fn($emoji) => !in_array($emoji, [\Spatie\Emoji\Emoji::CHARACTER_TRADE_MARK, \Spatie\Emoji\Emoji::CHARACTER_COPYRIGHT, \Spatie\Emoji\Emoji::CHARACTER_REGISTERED])
+	)
+);
 
 // Work on bytes, output a PCRE regexp made of ASCII characters
 $builder = new s9e\RegexpBuilder\Builder([
