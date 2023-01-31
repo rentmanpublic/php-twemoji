@@ -19,7 +19,13 @@ $emoji = array_map(
 	},
 	array_filter(
 		Spatie\Emoji\Emoji::all(),
-		fn($emoji) => !in_array($emoji, [\Spatie\Emoji\Emoji::CHARACTER_TRADE_MARK, \Spatie\Emoji\Emoji::CHARACTER_COPYRIGHT, \Spatie\Emoji\Emoji::CHARACTER_REGISTERED])
+		fn($emoji) => !in_array($emoji, [
+			\Spatie\Emoji\Emoji::CHARACTER_TRADE_MARK,
+			\Spatie\Emoji\Emoji::CHARACTER_COPYRIGHT,
+			\Spatie\Emoji\Emoji::CHARACTER_REGISTERED,
+			\Spatie\Emoji\Emoji::CHARACTER_UP_DOWN_ARROW,
+			\Spatie\Emoji\Emoji::CHARACTER_LEFT_RIGHT_ARROW,
+		])
 	)
 );
 
